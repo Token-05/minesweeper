@@ -1,70 +1,82 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import './index.css';
 
-// function Blog(props) {
-//     const sidebar = (    
-//         <ul>
-//             {props.posts.map((post) =>
-//                 <li key={post.id}>          
-//                 {post.title}
-//                 </li>
-//             )}
-//         </ul>
-//     );
-//     const content = props.posts.map((post) =>    
-//         <div key={post.id}>      
-//         <h3>{post.title}</h3>
-//         <p>{post.content}</p>
-//         </div>
-//     );
-//     return (
-//         <div>
-//         {sidebar}      
-//         <hr />
-//         {content}    
-//         </div>
-//     );
+// function Square(props) {
+//     <button 
+//         className="square" 
+//         onClick={props.onClick}
+//     >
+//         {props.value}
+//     </button>
 // }
 
-// const posts = [
-// {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
-// {id: 2, title: 'Installation', content: 'You can install React from npm.'}
-// ];
-// ReactDOM.render(
-// <Blog posts={posts} />,
-// document.getElementById('root')
-// );
-
-
-class NameForm extends React.Component {
+class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.list = [];
+        this.state = {
+            board: 6,//board × board盤面
+            suqares: {
+                id: Array(36).fill(null),
+                status: Array(36).fill(false),//未接触:false 接触済:true
+                contents: Array(36).fill(false),//何もない:false 爆弾あり:true
+            }
+        };
     }
 
-    handleChange(event) {    this.setState({value: event.target.value});  }
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
+    eventhandle(place) {
+        const newsuqaresState = Object.assign({}, this.state.suqares);
+        newsuqaresState.contents[place] = true;
+        this.setState({ suqares: newsuqaresState });
+        document.getElementById(place).style.display = 'none';
     }
 
     render() {
+        const suqaresOne = this.state.suqares;
+        const board = this.state.board;
+
+        for(let i = 0; i < board; i++){
+            this.list.push(<div className="board-row" />);
+            for(let j = 0; j < board; j++){
+                if(suqaresOne.contents[i*board+j] === false){
+                    this.list.push(<button className="square" id={i*board+j} value={suqaresOne.contents[i*board+j]} 
+                    onClick={() => this.eventhandle(i*board+j)}>1</button>);
+                } 
+                if(suqaresOne.contents[i*board+j] === true) {
+                    this.list.push(<div className="square" id={i*board+j} value={suqaresOne.contents[i*board+j]} 
+                    style="display: inline;">2</div>);
+                }
+            }
+        }
         return (
-            <form onSubmit={this.handleSubmit}>        
-            <label>
-                Name:
-                <input type="text" value={this.state.value} onChange={this.handleChange} />        
-            </label>
-            <input type="submit" value="Submit" />
-            </form>
+            <div>
+                <p>{this.state.board} × {this.state.board}盤面です</p>
+                {this.list}
+            </div>
         );
     }
 }
 
+class Game extends React.Component {
+    render() {
+        return (
+            <div className="game">
+                <div className="game-board">
+                    <Board />
+                </div>
+                <div className="game-info">
+                    <div>{/* status */}</div>
+                    <ol>{/* TODO */}</ol>
+                </div>
+            </div>
+        );
+    }
+}
+
+// ========================================
+
 ReactDOM.render(
-<NameForm />,
-document.getElementById('root')
+    <Game />,
+    document.getElementById('root')
 );

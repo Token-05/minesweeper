@@ -1,3 +1,7 @@
+#root {
+  margin: 0 auto;
+}
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
@@ -18,26 +22,22 @@ ol, ul {
 }
 
 .square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
+  display: inline-block;
+  text-align: left;
+  background-image: linear-gradient(#eaeaea 0%, #c6c6c6 100%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
+  color: #a5a5a5;
+  font-size: 16px;
+  text-decoration: none;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+  padding: 12px 15px;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
+.square:hover {
+  opacity: 0.8;
 }
 
 .game {
