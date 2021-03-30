@@ -35,10 +35,6 @@ ol, ul {
   font-size: 16px;
 }
 
-.square:hover {
-  opacity: 0.8;
-}
-
 .tapped {
   display: none;
   padding: 15px 20px;
@@ -49,6 +45,10 @@ ol, ul {
   display: inline-block;
   color: blue;
   border-radius: 4px;
+}
+
+.tap:hover {
+  opacity: 0.8;
 }
 
 .game {
