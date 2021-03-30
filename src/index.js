@@ -32,7 +32,22 @@ class Board extends React.Component {
     }
 
     bombInst() {
-        
+        const board = this.state.board;
+        let randoms = new Array(board*board);
+        do {
+            let random = Math.floor(Math.random() * 100);
+            let canAdd = true;
+            for(let i = 0; i < randoms.length; i++) {
+                if(randoms[i] == random) {
+                    canAdd = false;
+                    break;
+                }
+            }
+            if(canAdd) {
+                randoms.push(random);
+            }
+        } while (randoms.length < 10);
+        console.log(randoms);
     }
 
     render() {
@@ -46,6 +61,7 @@ class Board extends React.Component {
                 onClick={() => this.eventhandle(i*board+j)}>?</button>);
             }
         }
+        this.bombInst();
 
         return (
             <div>
