@@ -2,70 +2,84 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import './index.css';
 
-// function Square(props) {
-//     <button 
-//         className="square" 
-//         onClick={props.onClick}
-//     >
-//         {props.value}
-//     </button>
-// }
+class Bomb extends React.Component {
+    constructor(props) {
+        super(props);
+        this.list = [];
+        this.id = this.props.id;
+        this.value = this.props.value;
+        this.level = this.props.level;
+        this.board = this.props.board;
+    }
+
+    bombInst() {
+        const random = Math.floor(Math.random() * 100);
+        let result = (random > 80 - this.level) ? true : false;
+        return result;
+    }
+
+    render() {
+        if(this.bombInst() === true){
+            this.list.push(<i className="fas fa-bomb font-small"></i>);
+        } else {
+            this.list.push(<div>{this.value}</div>);
+        } 
+        return (
+            <div>
+                {this.list}
+            </div>
+        );
+    }   
+}
 
 class Board extends React.Component {
     constructor(props) {
         super(props);
         this.list = [];
+        this.level = 10;
+        this.board = 10;//board × board盤面
         this.state = {
-            board: 6,//board × board盤面
-            suqares: {
-                id: Array(36).fill(null),
-                // status: Array(36).fill(false),//未接触:false 接触済:true
-                contents: Array(36).fill(false),//何もない:false 爆弾あり:true
-            }
+            contents: Array(this.board*this.board).fill(0),//何もない:0 爆弾あり:true
         };
     }
 
     eventhandle(place) {
-        const board = this.state.board;
-        document.getElementById(place).style.display = 'none';
-        document.getElementById(place+board*board).style.display = 'inline-block';
+        const board = this.board;
+        const dkplace = document.getElementById(place);
+        document.getElementById(place+board*board).style.display = 'none';
+        if(dkplace.innerHTML === "<div><div>0</div></div>") {
+            return;
+        } else {
+            alert('Bomb!!!!💣');
+            document.location.reload();
+        }
     }
 
-    bombInst() {
-        const board = this.state.board;
-        let randoms = new Array(board*board);
-        do {
-            let random = Math.floor(Math.random() * 100);
-            let canAdd = true;
-            for(let i = 0; i < randoms.length; i++) {
-                if(randoms[i] == random) {
-                    canAdd = false;
-                    break;
-                }
-            }
-            if(canAdd) {
-                randoms.push(random);
-            }
-        } while (randoms.length < 10);
-        console.log(randoms);
+    bombsearch(place) {
+        if(document.getElementById(place).innerHTML === '<div><i class="fas fa-bomb font-small"></i></div>') {
+            const contents_copy = this.state.contents.slice();
+            contents_copy[place] = true;
+            this.setState({contents: contents_copy});
+        }
     }
 
     render() {
-        const suqaresOne = this.state.suqares;
-        const board = this.state.board;
+        const squaresOne = this.state;
+        const board = this.board;
         for(let i = 0; i < board; i++){
             this.list.push(<div className="board-row" />);
             for(let j = 0; j < board; j++){
-                this.list.push(<div className="square tapped" id={i*board+j+board*board} value={suqaresOne.contents[i*board+j]}>2</div>);
-                this.list.push(<button className="square tap" id={i*board+j} value={suqaresOne.contents[i*board+j]} 
+                this.list.push(<button className="square tap" id={i*board+j+board*board} value={squaresOne.contents[i*board+j]} 
                 onClick={() => this.eventhandle(i*board+j)}>?</button>);
+                this.list.push(<div className="square tapped" id={i*board+j} value={squaresOne.contents[i*board+j]}>
+                <Bomb id={i*board+j} value={squaresOne.contents[i*board+j]} level={this.level} board={board}/></div>);
+                this.bombsearch(i*board+j);
             }
         }
-        this.bombInst();
 
         return (
             <div>
-                <p>{this.state.board} × {this.state.board}盤面です</p>
+                <p>{this.board} × {this.board}盤面です</p>
                 {this.list}
             </div>
         );
@@ -73,6 +87,7 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+
     render() {
         return (
             <div className="game">
@@ -80,7 +95,7 @@ class Game extends React.Component {
                     <Board />
                 </div>
                 <div className="game-info">
-                    <div>{/* status */}</div>
+                    <div>{}</div>
                     <ol>{/* TODO */}</ol>
                 </div>
             </div>
