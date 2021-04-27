@@ -69,10 +69,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
 
-# React studying
+# Mine Sweeper
 
 ***
 
-Currently in progress. Rewrite when finished.
+完成したお!!初のreactで作成した作品。
 
 
