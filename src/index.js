@@ -7,12 +7,12 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.list = [];
-        this.level = 0;
-        this.board = 8;//board × board盤面
+        this.level = 5;
+        this.board = 10;//board × board盤面
         this.numcount = 0;
         const carray = Array(this.board*this.board).fill(0);
         this.contents = carray.map(() => {
-            let result = (Math.floor(Math.random() * 100) > 80 - this.level) ? 9 : 0;
+            let result = (Math.floor(Math.random() * 100) > 86 - this.level) ? 9 : 0;
             if(result === 0) this.numcount++;
             return result;
         });//何もない:0 爆弾あり:1
@@ -27,6 +27,11 @@ class Board extends React.Component {
             document.location.reload();
         } else {
             this.numcount--;
+            // this.placearound.map(x => {
+            //     if(this.contents[place] === 0) {
+            //         document.getElementById(x+board*board).style.display = 'none';
+            //     }
+            // })
             if(this.numcount === 0){
                 alert("clear!!");
                 document.location.reload();
@@ -39,7 +44,7 @@ class Board extends React.Component {
     bombLocation(place) {
         const b = this.board;
         const con = this.contents;
-        const placearound = [
+        this.placearound = [
             place-1-b,
             place-b,
             place+1-b,
@@ -49,7 +54,7 @@ class Board extends React.Component {
             place+b,
             place+1+b
         ];
-        placearound.map(x => {
+        this.placearound.map(x => {
             if((con[x] === 9) && (b*b-1 >= x >= 0)){
                 if((place%b===b-1) && (x%b===0)) {} else if((place%b===0) && (x%b===b-1)){} else {
                     con[place] += 1;
