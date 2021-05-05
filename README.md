@@ -73,6 +73,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ***
 
-完成したお!!初のreactで作成した作品。
-
-
+作成中ですが公開。
+[MineSweeper](https://token-05.github.io/minesweeper/)
