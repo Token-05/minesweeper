@@ -4,11 +4,6 @@
 
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
-
-ol, ul {
-  padding-left: 30px;
 }
 
 .board-row:after {
@@ -17,28 +12,15 @@ ol, ul {
   display: table;
 }
 
-.status {
-  margin-bottom: 10px;
-}
-
 .square {
   display: inline-block;
-  text-align: left;
-  color: #a5a5a5;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 13px 18px;
-  font-size: 16px;
 }
 
 .tapped {
   z-index: 2;
   background-color: gray;
-  display: inline-block;
-  padding: 14.7px 19.7px;
+  padding: 8px 11px;
   color: yellow;
-  font-size: 16px;
 }
 
 .tap {
@@ -46,10 +28,10 @@ ol, ul {
   z-index: 1;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), 0 2px 2px rgba(0, 0, 0, 0.19);
   background-image: linear-gradient(#eaeaea 0%, #c6c6c6 100%);
-  display: inline-block;
   color: blue;
-  border-radius: 4px;
+  border-radius: 10%;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+  padding: 6.5px 9px;
 }
 
 .tap:hover {
@@ -62,11 +44,12 @@ ol, ul {
   flex-direction: row;
 }
 
-.game-info {
-  margin-left: 20px;
+@media screen and (max-width: 959px) {
+	/* （タブレット用） */
+
 }
 
-.font-small {
-  font-size: 9px;
-}
+@media screen and (max-width: 480px) {
+	/* （スマホ用） */
 
+}
