@@ -25,13 +25,14 @@ class Board extends React.Component {
         if(dkplace.innerHTML === '9') {
             alert('Bomb!!!!💣');
             document.location.reload();
-        } else {
+        } 
+        // else if (dkplace.innerHTML === '0') {
+        //     this.placearound.map(x => {
+        //         document.getElementById(x+board*board).style.display = 'none';
+        //     });
+        // } 
+        else {
             this.numcount--;
-            // this.placearound.map(x => {
-            //     if(this.contents[place] === 0) {
-            //         document.getElementById(x+board*board).style.display = 'none';
-            //     }
-            // })
             if(this.numcount === 0){
                 alert("clear!!");
                 document.location.reload();
